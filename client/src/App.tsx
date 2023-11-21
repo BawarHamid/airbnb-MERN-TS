@@ -7,16 +7,8 @@ import Layout from "./components/layout/Layout";
 const App: React.FC = () => {
   return (
     <div>
-      {/* <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<HomePage />} />
-          <Route path="/login" element={<SignInPage />} />
-          <Route path="/register" element={<SignUpPage />} />
-        </Route>
-      </Routes> */}
-
       <Routes>
-        <Route element={<Layout />}>
+        <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="/login" element={<SignInPage />} />
           <Route path="/register" element={<SignUpPage />} />
