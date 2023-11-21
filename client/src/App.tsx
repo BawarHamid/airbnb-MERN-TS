@@ -1,14 +1,26 @@
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import SignInPage from "./pages/Authentication/SignInPage";
+import SignUpPage from "./pages/Authentication/SignUpPage";
+import Layout from "./components/layout/Layout";
 
 const App: React.FC = () => {
   return (
     <div>
+      {/* <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="/login" element={<SignInPage />} />
+          <Route path="/register" element={<SignUpPage />} />
+        </Route>
+      </Routes> */}
+
       <Routes>
-        <Route index element={<HomePage />} />
-        <Route index element={<SignInPage />} />
-        <Route index element={<SignInPage />} />
+        <Route element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="/login" element={<SignInPage />} />
+          <Route path="/register" element={<SignUpPage />} />
+        </Route>
       </Routes>
     </div>
   );
