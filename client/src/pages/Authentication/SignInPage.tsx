@@ -9,10 +9,11 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const SignInPage: React.FC = () => {
   const [show, setShow] = React.useState(false);
-  const handleClick = () => setShow(!show);
+  const handleShowPassword = () => setShow(!show);
   const [inputEmail, setInputEmail] = useState("");
   const [inputPassword, setInputPassword] = useState("");
 
@@ -23,27 +24,31 @@ const SignInPage: React.FC = () => {
   const isErrorPassword = inputPassword === "";
 
   return (
-    <div>
-      <h1 className="text-xl text-center">Welcome to BeHome's!</h1>
-
-      <form className="max-w-md mx-auto mt-20">
-        <FormControl isInvalid={isErrorEmail}>
-          <InputGroup className="mb-5">
+    <div className="mt-4 grow">
+      <h1 className="text-3xl text-center">Velkommen til BeHome's!</h1>
+      <h3 className="text-lg text-center text-gray-400 mt-2 italic font-bold">
+        Log ind her!
+      </h3>
+      <form className="max-w-md mx-auto mt-10">
+        <FormControl isInvalid={isErrorEmail} mb="8" isRequired>
+          <InputGroup>
             <InputLeftElement pointerEvents="none">
               <EmailIcon color="gray.300" />
             </InputLeftElement>
             <Input
-              type="tel"
-              size="md"
+              type="email"
               placeholder="behome@email.com"
               onChange={handleInputChangeEmail}
             />
           </InputGroup>
-          {!isErrorEmail ? (
-            ""
-          ) : (
-            <FormErrorMessage>Email is required.</FormErrorMessage>
-          )}
+          <FormErrorMessage
+            style={{
+              position: "absolute",
+              marginTop: "5px", // Adjust this value to your preference
+            }}
+          >
+            {isErrorEmail && "Email is required."}
+          </FormErrorMessage>
         </FormControl>
 
         <FormControl isInvalid={isErrorPassword}>
@@ -53,22 +58,28 @@ const SignInPage: React.FC = () => {
             </InputLeftElement>
 
             <Input
-              pr="4.5rem"
               type={show ? "text" : "password"}
               placeholder="password"
               onChange={handleInputChangePassword}
             />
             <InputRightElement width="4.5rem">
-              <Button h="1.75rem" size="sm" onClick={handleClick}>
+              <Button
+                h="1.80rem"
+                size="sm"
+                onClick={handleShowPassword}
+                color={"#FF385C"}
+              >
                 {show ? "Hide" : "Show"}
               </Button>
             </InputRightElement>
           </InputGroup>
-          {!isErrorPassword ? (
-            ""
-          ) : (
-            <FormErrorMessage>Password is required.</FormErrorMessage>
-          )}
+          <FormErrorMessage
+            style={{
+              marginTop: "5px", // Adjust this value to your preference
+            }}
+          >
+            {isErrorPassword && "Password is required."}
+          </FormErrorMessage>
         </FormControl>
 
         <button
@@ -77,8 +88,14 @@ const SignInPage: React.FC = () => {
             (isErrorEmail && isErrorPassword) || isErrorEmail || isErrorPassword
           }
         >
-          Login
+          Log ind
         </button>
+        <div className="text-center py-2 text-gray-500">
+          Har du ikke nogen bruger endnu?{" "}
+          <Link className="underline text-black" to={"/register"}>
+            Register dig her!
+          </Link>
+        </div>
       </form>
     </div>
   );

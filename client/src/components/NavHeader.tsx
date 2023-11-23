@@ -25,11 +25,11 @@ const NavHeader: React.FC = () => {
           <span className="font-bold text-xl">BeHome's</span>
         </a>
         <div className="flex border border-red-700 rounded-full py-2 px-4 gap-2 shadow-md shadow-red-200">
-          <div>Hvor?</div>
+          <div>Hvilken lokation?</div>
           <div className="border-l border-red-300" />
-          <div>Dag?</div>
+          <div>Hvornår?</div>
           <div className="border-l border-red-300" />
-          <div>Gæster?</div>
+          <div>Tilføj gæster?</div>
           <button className="bg-primary-red p-2 rounded-full">
             <svg
               xmlns="http://www.w3.org/2000/svg"

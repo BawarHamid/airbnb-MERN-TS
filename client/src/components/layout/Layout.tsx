@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 const Layout: React.FC = () => {
   return (
     <>
-      <div>
+      <div className="flex flex-col min-h-screen">
         <NavHeader />
         <div className="py-20">
           <Outlet />

@@ -16,8 +16,13 @@ import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+
+const element = <FontAwesomeIcon icon={faEnvelope} />;
+
 const rootElement = document.getElementById("root");
-ReactDOM.createRoot(rootElement).render(
+ReactDOM.createRoot(rootElement, element, document.body).render(
   <React.StrictMode>
     <ChakraProvider>
       <BrowserRouter>
