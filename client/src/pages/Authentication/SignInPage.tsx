@@ -39,7 +39,7 @@ const SignInPage: React.FC = () => {
         duration: 500,
         isClosable: true,
       });
-      navigate("/");
+      // navigate("/");
     } catch (error) {
       toast({
         position: "top",

@@ -7,10 +7,11 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const bcryptSalt = bcrypt.genSaltSync(12);
-const jwtSecret = "chefen112qassam2507";
+const jwtSecret = "papiChefen0x0x0x0selam";
 
 const app = express();
 app.use(express.json());
+
 app.use(
   cors({
     credentials: true,
@@ -41,36 +42,48 @@ app.post("/register", async (req, res) => {
 
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
-  const userLoginReq = await UserModel.findOne({ email: email });
+  const userLoginReq = await UserModel.findOne({ email });
 
   if (userLoginReq) {
     const passwordOk = bcrypt.compareSync(password, userLoginReq.password);
     if (passwordOk) {
       jwt.sign(
-        { email: userLoginReq.email, id: userLoginReq._id },
+        {
+          email: userLoginReq.email,
+          id: userLoginReq._id,
+        },
         jwtSecret,
         {},
         (error, token) => {
-          if (error) throw error;
-          res.cookie(token, token).json("password is ok!");
+          if (error) throw err;
+          // res.cookie("token", token).json(userLoginReq);
+          res.cookie("token", token, { httpOnly: true }).json(userLoginReq);
         }
       );
+
+      // jwt.sign(
+      //   {
+      //     email: userLoginReq.email,
+      //     id: userLoginReq._id,
+      //   },
+      //   jwtSecret,
+      //   {
+      //     expiresIn: "1h", // Optionally, set an expiration time for the token
+      //   },
+      //   (error, token) => {
+      //     if (error) {
+      //       res.status(500).json({ error: "Failed to generate token" });
+      //     } else {
+      //       res.cookie("token", token, { httpOnly: true }).json(userLoginReq);
+      //     }
+      //   }
+      // );
     } else {
-      res.status(422).json("password not ok!");
+      res.status(422).json("pass not ok");
     }
   } else {
-    res.json("not found!");
+    res.json("not found");
   }
-
-  //   try {
-  //     const userLogin = await UserModel.create({
-  //       email,
-  //       password,
-  //     });
-  //     res.json(userLogin);
-  //   } catch (error) {
-  //     res.status(422).json(error);
-  //   }
 });
 
 app.listen(4000);

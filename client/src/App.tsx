@@ -5,6 +5,7 @@ import SignUpPage from "./pages/Authentication/SignUpPage";
 import Layout from "./components/layout/Layout";
 import axios from "axios";
 
+// axios.defaults.baseURL = "http://127.0.0.1:4000";
 axios.defaults.baseURL = "http://localhost:4000";
 axios.defaults.withCredentials = true;
 
