@@ -8,12 +8,13 @@ import {
   InputGroup,
   InputLeftElement,
   InputRightElement,
+  useToast,
 } from "@chakra-ui/react";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUpPage: React.FC = () => {
   const [show, setShow] = React.useState(false);
@@ -22,9 +23,11 @@ const SignUpPage: React.FC = () => {
   const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const toast = useToast();
+  const navigate = useNavigate();
 
-  const handleInputChangeEmail = (e) => setEmail(e.target.value);
-  const handleInputChangePassword = (e) => setPassword(e.target.value);
+  const handleEmailChange = (e) => setEmail(e.target.value);
+  const handlePasswordChange = (e) => setPassword(e.target.value);
   const handleFirstNameChange = (e) => setFirstName(e.target.value);
   const handleLastNameChange = (e) => setLastName(e.target.value);
 
@@ -36,7 +39,27 @@ const SignUpPage: React.FC = () => {
   const handleRegistration = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    axios.post("/register", { firstname, lastname, email, password });
+    try {
+      await axios.post("/register", { firstname, lastname, email, password });
+      toast({
+        position: "top",
+        title: "Registreringen Gennemført!",
+        description: "Registrering godkendt. Du kan nu logge ind!",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+      navigate("/login");
+    } catch (error) {
+      toast({
+        position: "top",
+        title: "Registrerings fejl!",
+        description: "Der opstod en fejl under registrering, prøv igen!",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
   };
 
   return (
@@ -103,7 +126,7 @@ const SignUpPage: React.FC = () => {
             <Input
               type="email"
               placeholder="behome@email.com"
-              onChange={handleInputChangeEmail}
+              onChange={handleEmailChange}
               value={email}
             />
           </InputGroup>
@@ -126,7 +149,7 @@ const SignUpPage: React.FC = () => {
             <Input
               type={show ? "text" : "password"}
               placeholder="password"
-              onChange={handleInputChangePassword}
+              onChange={handlePasswordChange}
               value={password}
             />
             <InputRightElement width="4.5rem">
@@ -161,6 +184,7 @@ const SignUpPage: React.FC = () => {
             isErrorEmail ||
             isErrorPassword
           }
+          type="submit"
         >
           Opret
         </button>

@@ -6,6 +6,7 @@ import Layout from "./components/layout/Layout";
 import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:4000";
+axios.defaults.withCredentials = true;
 
 const App: React.FC = () => {
   return (

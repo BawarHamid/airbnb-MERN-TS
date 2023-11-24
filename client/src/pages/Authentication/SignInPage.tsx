@@ -7,21 +7,55 @@ import {
   InputGroup,
   InputLeftElement,
   InputRightElement,
+  useToast,
 } from "@chakra-ui/react";
+import axios from "axios";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const SignInPage: React.FC = () => {
   const [show, setShow] = React.useState(false);
   const handleShowPassword = () => setShow(!show);
-  const [inputEmail, setInputEmail] = useState("");
-  const [inputPassword, setInputPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  // const [redirect, setRedirect] = useState(false);
+  const toast = useToast();
+  const navigate = useNavigate();
 
-  const handleInputChangeEmail = (e) => setInputEmail(e.target.value);
-  const handleInputChangePassword = (e) => setInputPassword(e.target.value);
+  const handleEmailChange = (e) => setEmail(e.target.value);
+  const handlePasswordChange = (e) => setPassword(e.target.value);
 
-  const isErrorEmail = inputEmail === "";
-  const isErrorPassword = inputPassword === "";
+  const isErrorEmail = email === "";
+  const isErrorPassword = password === "";
+
+  const handleLogin = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+
+    try {
+      await axios.post("/login", { email, password });
+      toast({
+        title: "Logger ind....",
+        status: "info",
+        duration: 500,
+        isClosable: true,
+      });
+      navigate("/");
+    } catch (error) {
+      toast({
+        position: "top",
+        title: "Log ind fejl!",
+        description: "Der opstod en fejl under log ind, prøv igen!",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  };
+
+  //unødvendig måde at redirect
+  // if (redirect) {
+  //   return <Navigate to={"/"} />;
+  // }
 
   return (
     <div className="mt-4 grow">
@@ -29,7 +63,7 @@ const SignInPage: React.FC = () => {
       <h3 className="text-lg text-center text-gray-400 mt-2 italic font-bold">
         Log ind her!
       </h3>
-      <form className="max-w-md mx-auto mt-10">
+      <form className="max-w-md mx-auto mt-10" onSubmit={handleLogin}>
         <FormControl isInvalid={isErrorEmail} mb="8" isRequired>
           <InputGroup>
             <InputLeftElement pointerEvents="none">
@@ -38,7 +72,7 @@ const SignInPage: React.FC = () => {
             <Input
               type="email"
               placeholder="behome@email.com"
-              onChange={handleInputChangeEmail}
+              onChange={handleEmailChange}
             />
           </InputGroup>
           <FormErrorMessage
@@ -60,7 +94,7 @@ const SignInPage: React.FC = () => {
             <Input
               type={show ? "text" : "password"}
               placeholder="password"
-              onChange={handleInputChangePassword}
+              onChange={handlePasswordChange}
             />
             <InputRightElement width="4.5rem">
               <Button
@@ -87,6 +121,7 @@ const SignInPage: React.FC = () => {
           disabled={
             (isErrorEmail && isErrorPassword) || isErrorEmail || isErrorPassword
           }
+          type="submit"
         >
           Log ind
         </button>
