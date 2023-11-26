@@ -10,14 +10,17 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/UserContext";
 
 const SignInPage: React.FC = () => {
   const [show, setShow] = React.useState(false);
   const handleShowPassword = () => setShow(!show);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setUser } = useContext(UserContext);
+
   // const [redirect, setRedirect] = useState(false);
   const toast = useToast();
   const navigate = useNavigate();
@@ -32,14 +35,15 @@ const SignInPage: React.FC = () => {
     e.preventDefault();
 
     try {
-      await axios.post("/login", { email, password });
+      const userLoginResponse = await axios.post("/login", { email, password });
+      setUser(userLoginResponse.data);
       toast({
         title: "Logger ind....",
         status: "info",
         duration: 500,
         isClosable: true,
       });
-      // navigate("/");
+      navigate("/");
     } catch (error) {
       toast({
         position: "top",
@@ -57,11 +61,26 @@ const SignInPage: React.FC = () => {
   //   return <Navigate to={"/"} />;
   // }
 
+  const svgStyleNavBarLogo = {
+    fill: "#FF385C", // Red fill color for the svg
+  };
+
   return (
-    <div className="mt-4 grow">
-      <h1 className="text-3xl text-center">Velkommen til BeHome's!</h1>
-      <h3 className="text-lg text-center text-gray-400 mt-2 italic font-bold">
-        Log ind her!
+    <div className="mt-2 grow">
+      <div className="flex justify-center items-center gap-2 mb-5">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 640 512"
+          style={svgStyleNavBarLogo}
+          className="h-16 w-16"
+        >
+          <path d="M32 32c17.7 0 32 14.3 32 32V320H288V160c0-17.7 14.3-32 32-32H544c53 0 96 43 96 96V448c0 17.7-14.3 32-32 32s-32-14.3-32-32V416H352 320 64v32c0 17.7-14.3 32-32 32s-32-14.3-32-32V64C0 46.3 14.3 32 32 32zm144 96a80 80 0 1 1 0 160 80 80 0 1 1 0-160z" />
+        </svg>
+        <span className="font-bold text-2xl">BeHome's</span>
+      </div>
+      <h1 className="text-3xl text-center">Velkommen tilbage</h1>
+      <h3 className="text-xl text-center mt-2 italic font-bold text-gray-600">
+        Log ind
       </h3>
       <form className="max-w-md mx-auto mt-10" onSubmit={handleLogin}>
         <FormControl isInvalid={isErrorEmail} mb="8" isRequired>

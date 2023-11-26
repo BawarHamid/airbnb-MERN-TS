@@ -4,6 +4,7 @@ import SignInPage from "./pages/Authentication/SignInPage";
 import SignUpPage from "./pages/Authentication/SignUpPage";
 import Layout from "./components/layout/Layout";
 import axios from "axios";
+import { UserContextProvider } from "./context/UserContext";
 
 // axios.defaults.baseURL = "http://127.0.0.1:4000";
 axios.defaults.baseURL = "http://localhost:4000";
@@ -12,13 +13,15 @@ axios.defaults.withCredentials = true;
 const App: React.FC = () => {
   return (
     <div>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<HomePage />} />
-          <Route path="/login" element={<SignInPage />} />
-          <Route path="/register" element={<SignUpPage />} />
-        </Route>
-      </Routes>
+      <UserContextProvider>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<HomePage />} />
+            <Route path="/login" element={<SignInPage />} />
+            <Route path="/register" element={<SignUpPage />} />
+          </Route>
+        </Routes>
+      </UserContextProvider>
     </div>
   );
 };

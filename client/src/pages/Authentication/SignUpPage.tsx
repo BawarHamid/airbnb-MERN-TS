@@ -62,11 +62,26 @@ const SignUpPage: React.FC = () => {
     }
   };
 
+  const svgStyleNavBarLogo = {
+    fill: "#FF385C", // Red fill color for the svg
+  };
+
   return (
     <div className="mt-4 grow">
+      <div className="flex justify-center items-center gap-2 mb-5">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 640 512"
+          style={svgStyleNavBarLogo}
+          className="h-16 w-16"
+        >
+          <path d="M32 32c17.7 0 32 14.3 32 32V320H288V160c0-17.7 14.3-32 32-32H544c53 0 96 43 96 96V448c0 17.7-14.3 32-32 32s-32-14.3-32-32V416H352 320 64v32c0 17.7-14.3 32-32 32s-32-14.3-32-32V64C0 46.3 14.3 32 32 32zm144 96a80 80 0 1 1 0 160 80 80 0 1 1 0-160z" />
+        </svg>
+        <span className="font-bold text-2xl">BeHome's</span>
+      </div>
       <h1 className="text-3xl text-center">Velkommen til BeHome's!</h1>
-      <h3 className="text-lg text-center text-gray-400 mt-2 italic font-bold">
-        Opret dig her!
+      <h3 className="text-xl text-center mt-2 italic font-bold text-gray-600">
+        Registrer dig
       </h3>
       <form className="max-w-md mx-auto mt-10" onSubmit={handleRegistration}>
         {/* First Name form */}
