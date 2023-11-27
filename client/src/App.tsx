@@ -5,6 +5,7 @@ import SignUpPage from "./pages/Authentication/SignUpPage";
 import Layout from "./components/layout/Layout";
 import axios from "axios";
 import { UserContextProvider } from "./context/UserContext";
+import AccountPage from "./pages/Account/AccountPage";
 
 // axios.defaults.baseURL = "http://127.0.0.1:4000";
 axios.defaults.baseURL = "http://localhost:4000";
@@ -19,6 +20,7 @@ const App: React.FC = () => {
             <Route index element={<HomePage />} />
             <Route path="/login" element={<SignInPage />} />
             <Route path="/register" element={<SignUpPage />} />
+            <Route path="/profil" element={<AccountPage />} />
           </Route>
         </Routes>
       </UserContextProvider>

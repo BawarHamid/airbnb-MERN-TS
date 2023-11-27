@@ -67,7 +67,7 @@ const SignUpPage: React.FC = () => {
   };
 
   return (
-    <div className="mt-4 grow">
+    <div className="mt-2 grow">
       <div className="flex justify-center items-center gap-2 mb-5">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -83,7 +83,7 @@ const SignUpPage: React.FC = () => {
       <h3 className="text-xl text-center mt-2 italic font-bold text-gray-600">
         Registrer dig
       </h3>
-      <form className="max-w-md mx-auto mt-10" onSubmit={handleRegistration}>
+      <form className="max-w-md mx-auto mt-5" onSubmit={handleRegistration}>
         {/* First Name form */}
         <FormControl isInvalid={isErrorFirstName} mb="8" isRequired>
           <FormLabel>First name:</FormLabel>

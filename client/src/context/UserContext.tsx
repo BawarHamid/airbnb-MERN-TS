@@ -18,6 +18,11 @@ export function UserContextProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState(null);
   const [ready, setReady] = useState(false);
 
+  async function logout() {
+    await axios.post("/logout");
+    setUser(null);
+  }
+
   useEffect(() => {
     if (!user) {
       axios.get("/profile").then(({ data }) => {
@@ -27,7 +32,7 @@ export function UserContextProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, setUser, ready, setReady }}>
+    <UserContext.Provider value={{ user, setUser, ready, setReady, logout }}>
       {children}
     </UserContext.Provider>
   );

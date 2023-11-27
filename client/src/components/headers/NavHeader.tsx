@@ -1,6 +1,7 @@
-import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
+import ProfileMenu from "../overlays/ProfileMenu";
+import React from "react";
 
 const svgStyleNavBarLogo = {
   fill: "#FF385C", // Red fill color for the svg
@@ -12,6 +13,16 @@ const svgStyleBtnLogo = {
 
 const NavHeader: React.FC = () => {
   const { user } = useContext(UserContext);
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+
+  const toggleProfileMenuDialog = () => {
+    setIsProfileMenuOpen(!isProfileMenuOpen);
+  };
+
+  const closeProfileMenuDialog = () => {
+    setIsProfileMenuOpen(false); // This is making the isOpen state to false to close the menu
+  };
+
   return (
     <>
       <header className="p-4 flex justify-between">
@@ -43,9 +54,8 @@ const NavHeader: React.FC = () => {
             </svg>
           </button>
         </div>
-
-        <Link
-          to={user ? "my-account" : "/login"}
+        <button
+          onClick={toggleProfileMenuDialog}
           className="flex border items-center border-red-700 rounded-full py-2 px-4 gap-3 shadow-md shadow-red-200"
         >
           <svg
@@ -67,8 +77,12 @@ const NavHeader: React.FC = () => {
             <path d="M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z" />
           </svg>
           {/* </button> */}
+          <ProfileMenu
+            isOpen={isProfileMenuOpen}
+            onClose={closeProfileMenuDialog}
+          />
           {!!user && <div>Hej {user.firstname}</div>}
-        </Link>
+        </button>
       </header>
     </>
   );
