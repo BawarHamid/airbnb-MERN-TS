@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
-import ProfileMenu from "../overlays/ProfileMenu";
+import ProfileMenu from "../overlays/dialogs/ProfileMenu";
 import React from "react";
 
 const svgStyleNavBarLogo = {
@@ -8,7 +8,7 @@ const svgStyleNavBarLogo = {
 };
 
 const svgStyleBtnLogo = {
-  fill: "#FFFFFF", // Red fill color for the svg
+  fill: "#FFFFFF", // White fill color for the svg
 };
 
 const NavHeader: React.FC = () => {
@@ -20,7 +20,7 @@ const NavHeader: React.FC = () => {
   };
 
   const closeProfileMenuDialog = () => {
-    setIsProfileMenuOpen(false); // This is making the isOpen state to false to close the menu
+    setIsProfileMenuOpen(false); // Close the profile menu on false
   };
 
   return (
@@ -37,17 +37,27 @@ const NavHeader: React.FC = () => {
           </svg>
           <span className="font-bold text-xl">BeHome's</span>
         </a>
-        <div className="flex border border-red-700 rounded-full py-2 px-4 gap-2 shadow-md shadow-red-200">
-          <div>Hvilken lokation?</div>
-          <div className="border-l border-red-300" />
-          <div>Hvornår?</div>
-          <div className="border-l border-red-300" />
-          <div>Tilføj gæster?</div>
-          <button className="bg-primary-red p-2 rounded-full">
+        <div className="flex border-2 border-white rounded-full py-2 px-4 gap-2 shadow-md shadow-primary-red bg-primary-red text-white">
+          <div>
+            <h3 className="text-sm font-bold text-white my-1">
+              Hvilken lokation
+            </h3>
+          </div>
+          <div className="border-l border-red-200" />
+          <div>
+            <h3 className="text-sm font-bold text-white my-1">Hvornår</h3>
+          </div>
+          <div className="border-l border-red-200" />
+          <div>
+            <h3 className="text-sm  text-gray-100 italic my-1">
+              Tilføj gæster
+            </h3>
+          </div>
+          <button className="bg-white p-2 rounded-full ml-1">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"
-              style={svgStyleBtnLogo}
+              style={svgStyleNavBarLogo}
               className="h-3"
             >
               <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
@@ -56,32 +66,30 @@ const NavHeader: React.FC = () => {
         </div>
         <button
           onClick={toggleProfileMenuDialog}
-          className="flex border items-center border-red-700 rounded-full py-2 px-4 gap-3 shadow-md shadow-red-200"
+          className="flex border-2 items-center border-white rounded-full py-2 px-4 gap-3 shadow-md shadow-primary-red bg-primary-red text-white font-bold"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 448 512"
-            style={svgStyleNavBarLogo}
+            style={svgStyleBtnLogo}
             className="h-4"
           >
             <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
           </svg>
 
-          {/* <button className="bg-gray-600 px-2 rounded-full"> */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512"
             className="h-7"
-            style={svgStyleNavBarLogo}
+            style={svgStyleBtnLogo}
           >
             <path d="M399 384.2C376.9 345.8 335.4 320 288 320H224c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z" />
           </svg>
-          {/* </button> */}
           <ProfileMenu
             isOpen={isProfileMenuOpen}
             onClose={closeProfileMenuDialog}
           />
-          {!!user && <div>Hej {user.firstname}</div>}
+          {!!user && <p className="text-sm my-1">Hej {user.firstname}</p>}
         </button>
       </header>
     </>

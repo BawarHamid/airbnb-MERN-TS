@@ -2,7 +2,7 @@ import React from "react";
 import NavHeader from "../headers/NavHeader";
 import { Outlet } from "react-router-dom";
 
-const Layout: React.FC = () => {
+const HeaderLayout: React.FC = () => {
   return (
     <>
       <div className="flex flex-col min-h-screen">
@@ -15,4 +15,4 @@ const Layout: React.FC = () => {
   );
 };
 
-export default Layout;
+export default HeaderLayout;
