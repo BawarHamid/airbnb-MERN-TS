@@ -44,9 +44,9 @@ const SignUpPage: React.FC = () => {
       toast({
         position: "top",
         title: "Registreringen Gennemført!",
-        description: "Registrering godkendt. Du kan nu logge ind!",
+        description: "Registrering godkendt. Du logger nu ind!",
         status: "success",
-        duration: 5000,
+        duration: 500,
         isClosable: true,
       });
       navigate("/login");
@@ -56,7 +56,7 @@ const SignUpPage: React.FC = () => {
         title: "Registrerings fejl!",
         description: "Der opstod en fejl under registrering, prøv igen!",
         status: "error",
-        duration: 9000,
+        duration: 1500,
         isClosable: true,
       });
     }

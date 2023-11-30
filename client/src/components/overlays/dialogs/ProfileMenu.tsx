@@ -22,10 +22,10 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({ isOpen, onClose }) => {
     <Menu isOpen={isOpen} onClose={onClose} placement="auto">
       <MenuButton className="mx-[-6px]"></MenuButton>
       <MenuList
-        className="mt-8 border-white ml-[70px]"
+        className="mt-8 border-white ml-[30px]"
         backgroundColor="#FF385C"
         borderWidth="1px"
-        rounded="10px"
+        rounded="12px"
       >
         <MenuGroup>
           <h2 className="text-start ml-4 font-bold text-base text-white">
@@ -46,7 +46,7 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({ isOpen, onClose }) => {
           </MenuItem>
           <MenuItem backgroundColor="#FF385C">
             <Link
-              to={user ? "/" : "/login"}
+              to={user ? "/login" : "/login"}
               onClick={logout}
               className="text-white text-sm hover:underline ml-2"
             >

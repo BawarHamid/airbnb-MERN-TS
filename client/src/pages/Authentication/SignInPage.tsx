@@ -35,22 +35,22 @@ const SignInPage: React.FC = () => {
     e.preventDefault();
 
     try {
-      const userLoginResponse = await axios.post("/login", { email, password });
-      setUser(userLoginResponse.data);
+      const { data } = await axios.post("/login", { email, password });
       toast({
         title: "Logger ind....",
         status: "info",
         duration: 500,
         isClosable: true,
       });
+      setUser(data);
       navigate("/");
     } catch (error) {
       toast({
         position: "top",
-        title: "Log ind fejl!",
-        description: "Der opstod en fejl under log ind, prøv igen!",
+        title: "Login Error!",
+        description: "Ugyldig email eller adgangskode!",
         status: "error",
-        duration: 5000,
+        duration: 1500,
         isClosable: true,
       });
     }

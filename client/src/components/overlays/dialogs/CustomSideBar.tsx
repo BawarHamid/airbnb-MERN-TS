@@ -1,13 +1,17 @@
 import { useContext } from "react";
 import { UserContext } from "../../../context/UserContext";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 const svgWhiteFill = {
   fill: "#FFFFFF", // White fill color for the svg
 };
 
 const CustomSideBar: React.FC = () => {
-  const { user, logout } = useContext(UserContext);
+  const { user, ready, logout } = useContext(UserContext);
+
+  if (ready && !user) {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <div className="left-0 top-0 flex flex-col justify-between bg-primary-red h-screen">
@@ -80,7 +84,7 @@ const CustomSideBar: React.FC = () => {
       </ul>
       <div className="w-full p-8">
         <button
-          className="bg-primary-red w-full text-white p-2 rounded-xl text-center"
+          className="bg-primary-red w-full text-white py-2 rounded-3xl text-center font-bold hover:bg-red-400 my-20"
           onClick={logout}
         >
           Log ud

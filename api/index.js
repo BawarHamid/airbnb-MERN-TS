@@ -30,15 +30,32 @@ app.get("/test", (req, res) => {
 app.post("/register", async (req, res) => {
   const { firstname, lastname, email, password } = req.body;
   try {
+    // Check if the email already exists in the database
+    const existingUser = await UserModel.findOne({ email });
+
+    if (existingUser) {
+      // Email already exists - HTTP 409 Conflict
+      return res.status(409).json({ message: "Email already exists" });
+    }
+
+    // Create a new user if the email doesn't exist
     const newUser = await UserModel.create({
       firstname,
       lastname,
       email,
       password: bcrypt.hashSync(password, bcryptSalt),
     });
-    res.json(newUser);
+
+    // Successful registration - HTTP 201 Created
+    res.status(201).json(newUser);
   } catch (error) {
-    res.status(422).json(error);
+    if (error.name === "ValidationError") {
+      // Validation errors - HTTP 422 Unprocessable Entity
+      res.status(422).json({ message: error.message });
+    } else {
+      // Other server errors - HTTP 500 Internal Server Error
+      res.status(500).json({ message: "Internal Server Error" });
+    }
   }
 });
 
@@ -65,10 +82,10 @@ app.post("/login", async (req, res) => {
         }
       );
     } else {
-      res.status(422).json("pass not ok");
+      res.status(401).json({ error: "Invalid Email or Password" });
     }
   } else {
-    res.json("not found");
+    res.status(401).json({ error: "Invalid Email or Password" });
   }
 });
 
