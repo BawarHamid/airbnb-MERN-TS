@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
-import ProfileMenu from "../overlays/dialogs/ProfileMenu";
+import ProfileMenu from "../layouts/dialogs/ProfileMenu";
 import React from "react";
 
 const svgStyleNavBarLogo = {
