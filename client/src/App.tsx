@@ -2,13 +2,13 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import SignInPage from "./pages/Authentication/SignInPage";
 import SignUpPage from "./pages/Authentication/SignUpPage";
-import HeaderLayout from "./components/layouts/dialogs/HeaderLayout";
+import HeaderLayout from "./components/layouts/HeaderLayout";
 import axios from "axios";
 import { UserContextProvider } from "./context/UserContext";
 import ProfilePage from "./pages/Account/ProfilePage";
 import BookingsPage from "./pages/Account/BookingsPage";
 import RentalsPage from "./pages/Account/RentalsPage";
-import ProfileLayout from "./components/layouts/dialogs/ProfileLayout";
+import ProfileLayout from "./components/layouts/ProfileLayout";
 import "./App.css";
 
 // axios.defaults.baseURL = "http://127.0.0.1:4000";

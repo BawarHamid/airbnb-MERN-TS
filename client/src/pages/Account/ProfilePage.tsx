@@ -4,7 +4,6 @@ import OptionCard from "../../components/cards/OptionCard";
 const ProfilePage: React.FC = () => {
   return (
     <div className="">
-      <h1>ProfilePage</h1>
       <div className="mt-16 flex flex-col justify-start ml-10">
         <OptionCard
           cardTitle="Konto Oplysninger"

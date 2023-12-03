@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { UserContext } from "../../../context/UserContext";
+import { UserContext } from "../../context/UserContext";
 
 type ProfileMenuProps = {
   isOpen?: boolean;

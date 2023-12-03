@@ -15,7 +15,7 @@ const CustomSidebarItems: React.FC<CustomSidebarItemsProps> = ({
   return (
     <li>
       <Link to={linkPath}>
-        <div className="flex py-3 px-14 gap-2 text-white hover:bg-red-400 items-center">
+        <div className="flex py-3 gap-2 px-[3.4rem] text-white hover:bg-red-400 items-center hover:w-full">
           {icon}
           <h2 className="text-white font-bold">{title}</h2>
         </div>

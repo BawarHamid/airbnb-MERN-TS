@@ -28,9 +28,10 @@
 // export default ProfileLayout;
 
 import { useContext } from "react";
-import { UserContext } from "../../../context/UserContext";
+import { UserContext } from "../../context/UserContext";
 import { Navigate, Outlet } from "react-router-dom";
-import CustomSideBar from "./CustomSideBar";
+import CustomSideBar from "../dialogs/CustomSideBar";
+import ProfileHeader from "../headers/ProfileHeader";
 
 const ProfileLayout: React.FC = () => {
   const { user, ready } = useContext(UserContext);
@@ -42,13 +43,19 @@ const ProfileLayout: React.FC = () => {
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <div className="fixed inset-0 z-50 w-64 sm:relative sm:w-auto sm:h-screen bg-primary-red">
+      <div className="fixed inset-0 z-40 w-64 sm:relative sm:w-auto sm:h-screen bg-primary-red">
         <CustomSideBar />
       </div>
 
       {/* Content */}
       <div className="flex-grow">
-        <Outlet />
+        {/* ProfileHeader */}
+        <ProfileHeader />
+
+        {/* Content */}
+        <div className="mt-12">
+          <Outlet />
+        </div>
       </div>
     </div>
   );

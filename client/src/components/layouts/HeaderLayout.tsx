@@ -1,5 +1,5 @@
 import React from "react";
-import NavHeader from "../../headers/NavHeader";
+import NavHeader from "../headers/NavHeader";
 import { Outlet } from "react-router-dom";
 
 const HeaderLayout: React.FC = () => {
