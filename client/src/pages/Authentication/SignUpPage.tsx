@@ -19,10 +19,10 @@ import { Link, useNavigate } from "react-router-dom";
 const SignUpPage: React.FC = () => {
   const [show, setShow] = React.useState(false);
   const handleShowPassword = () => setShow(!show);
-  const [firstname, setFirstName] = useState("");
-  const [lastname, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [firstname, setFirstName] = useState<string>("");
+  const [lastname, setLastName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const toast = useToast();
   const navigate = useNavigate();
 
@@ -49,7 +49,7 @@ const SignUpPage: React.FC = () => {
         duration: 500,
         isClosable: true,
       });
-      navigate("/login");
+      navigate("/");
     } catch (error) {
       toast({
         position: "top",

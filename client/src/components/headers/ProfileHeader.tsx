@@ -5,7 +5,7 @@ import { UserContext } from "../../context/UserContext";
 const ProfileHeader: React.FC = () => {
   const { user } = useContext(UserContext);
   return (
-    <header className="bg-neutral-50 z-50 py-2 flex items-center">
+    <header className="bg-[#f8f9fe74] z-50 py-2 flex items-center">
       <SearchBar
         searchBarText="Søg her"
         icon={
@@ -18,7 +18,7 @@ const ProfileHeader: React.FC = () => {
           </svg>
         }
       />
-      <div className="ml-[480px] flex gap-4">
+      <div className="ml-[440px] flex gap-4">
         <button className="bg-white rounded-full border-gray-200 py-3 px-3 border hover:border-blue-600 focus:border-blue-600">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -47,9 +47,14 @@ const ProfileHeader: React.FC = () => {
           </svg>
         </button>
       </div>
-      <div className="flex">
+      <div className="flex ml-4">
+        <img
+          className="h-9 w-9 rounded-full"
+          src="https://gravatar.chjina.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"
+        />
+
         {!!user && (
-          <h3 className="ml-5 text-base font-bold">
+          <h3 className="ml-5 text-base font-bold flex items-center">
             {user.firstname} {user.lastname}
           </h3>
         )}

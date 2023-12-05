@@ -43,7 +43,7 @@ const ProfileLayout: React.FC = () => {
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <div className="fixed inset-0 z-40 w-64 sm:relative sm:w-auto sm:h-screen bg-primary-red">
+      <div className="fixed inset-0 z-40 w-64 sm:relative sm:w-auto sm:h-screen bg-primary-blue">
         <CustomSideBar />
       </div>
 

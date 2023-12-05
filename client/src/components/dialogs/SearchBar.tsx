@@ -1,4 +1,3 @@
-import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import { ReactElement } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -40,7 +39,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ icon, searchBarText }) => {
         className="absolute inset-y-0 right-0 flex items-center hover:cursor-pointer mr-4"
         onClick={() => navigate("/my-bookings")}
       >
-        {icon}
+        <div>{icon}</div>
       </div>
     </div>
   );

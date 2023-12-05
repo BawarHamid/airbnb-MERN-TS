@@ -10,7 +10,6 @@ import BookingsPage from "./pages/Account/BookingsPage";
 import RentalsPage from "./pages/Account/RentalsPage";
 import ProfileLayout from "./components/layouts/ProfileLayout";
 import "./App.css";
-
 // axios.defaults.baseURL = "http://127.0.0.1:4000";
 axios.defaults.baseURL = "http://localhost:4000";
 axios.defaults.withCredentials = true;

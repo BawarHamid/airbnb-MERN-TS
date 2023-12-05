@@ -17,8 +17,8 @@ import { UserContext } from "../../context/UserContext";
 const SignInPage: React.FC = () => {
   const [show, setShow] = React.useState(false);
   const handleShowPassword = () => setShow(!show);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const { setUser } = useContext(UserContext);
 
   // const [redirect, setRedirect] = useState(false);
