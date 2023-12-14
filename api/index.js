@@ -59,6 +59,36 @@ app.post("/register", async (req, res) => {
   }
 });
 
+// app.post("/register", async (req, res) => {
+//   const { firstname, lastname, email, password } = req.body;
+//   try {
+//     // Check if the email already exists in the database
+//     const existingUser = await UserModel.findOne({ email });
+
+//     if (existingUser) {
+//       return res.status(409).json({ message: "Email already exists" });
+//     }
+
+//     // Create a new user if the email doesn't exist
+//     const newUser = await UserModel.create({
+//       firstname,
+//       lastname,
+//       email,
+//       password: bcrypt.hashSync(password, bcryptSalt),
+//     });
+
+//     // Generate a token (you need to have a secret key)
+//     const token = jwt.sign({ userId: newUser._id }, jwtSecret, {
+//       expiresIn: "7d", // A week (Adjust as per your requirement)
+//     });
+
+//     // Respond with the token
+//     res.status(201).json({ token, user: newUser });
+//   } catch (error) {
+//     // Handle errors
+//   }
+// });
+
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
   const userLoginReq = await UserModel.findOne({ email });
@@ -99,14 +129,58 @@ app.get("/profile", (req, res) => {
     jwt.verify(token, jwtSecret, {}, async (error, userData) => {
       if (error) throw error;
 
-      const { firstname, lastname, email, _id } = await UserModel.findById(
-        userData.id
-      );
-      res.json({ firstname, lastname, email, _id });
+      const {
+        firstname,
+        lastname,
+        email,
+        phonenumber,
+        address,
+        city,
+        province,
+        zipcode,
+        country,
+        _id,
+      } = await UserModel.findById(userData.id);
+      // console.log(userData);
+      res.json({
+        firstname,
+        lastname,
+        email,
+        phonenumber,
+        address,
+        city,
+        province,
+        zipcode,
+        country,
+        _id,
+      });
     });
   } else {
     res.json(null);
   }
 });
+
+// app.get("/profile", async (req, res) => {
+//   const { token } = req.cookies;
+
+//   if (!token) {
+//     return res.status(401).json({ message: "Unauthorized" });
+//   }
+
+//   try {
+//     const userData = await jwt.verify(token, jwtSecret);
+//     const user = await UserModel.findById(userData.id);
+
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found" });
+//     }
+
+//     const { firstname, lastname, email, _id } = user;
+//     res.json({ firstname, lastname, email, _id });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: "Internal Server Error" });
+//   }
+// });
 
 app.listen(4000);

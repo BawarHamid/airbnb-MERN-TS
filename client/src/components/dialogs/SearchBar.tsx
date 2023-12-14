@@ -32,7 +32,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ icon, searchBarText }) => {
     // </div>
     <div className="my-2 ml-10 relative">
       <input
-        className="outline-none text-gray-600 bg-white italic text-start py-2 pl-5 rounded-lg w-[45rem] border focus:border-blue-600"
+        className="outline-none placeholder-gray-600 text-gray-600 bg-gray-50 italic text-start py-2 pl-5 rounded-lg w-[45rem] border focus:border-blue-600 focus:bg-white"
         placeholder={searchBarText}
       />
       <div

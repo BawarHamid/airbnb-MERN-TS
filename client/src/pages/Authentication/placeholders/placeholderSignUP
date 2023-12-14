@@ -1,0 +1,58 @@
+// const handleRegistration = async (e: { preventDefault: () => void }) => {
+//     e.preventDefault();
+
+//     try {
+//       const response = await axios.post("/register", {
+//         firstname,
+//         lastname,
+//         email,
+//         password,
+//       });
+//       const { token } = response.data; // Extract the token from the response
+//       // Store the token in the local storage
+//       localStorage.setItem("token", token);
+//       toast({
+//         position: "top",
+//         title: "Registreringen Gennemført!",
+//         description: "Registrering godkendt. Du logger nu ind!",
+//         status: "success",
+//         duration: 500,
+//         isClosable: true,
+//       });
+//       navigate("/");
+//     } catch (error) {
+//       toast({
+//         position: "top",
+//         title: "Registrerings fejl!",
+//         description: "Der opstod en fejl under registrering, prøv igen!",
+//         status: "error",
+//         duration: 1500,
+//         isClosable: true,
+//       });
+//     }
+//   };
+
+// const handleRegistration = async (e) => {
+//     e.preventDefault();
+
+//     try {
+//       const response = await axios.post("/register", {
+//         firstname,
+//         lastname,
+//         email,
+//         password,
+//       });
+
+//       const { token, user } = response.data;
+//       localStorage.setItem("token", token);
+
+//       // Update UserContext with the user information if needed
+//       setUser(user); // Assuming setUser is a function from your context
+
+//       // Redirect to the desired route upon successful registration
+//       navigate("/");
+//     } catch (error) {
+//       // Handle registration error
+//       console.error("Registration error:", error);
+//     }
+//   };

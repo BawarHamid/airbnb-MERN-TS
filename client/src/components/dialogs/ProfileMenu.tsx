@@ -33,6 +33,15 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({ isOpen, onClose }) => {
           </h2>
           <MenuItem backgroundColor="#FF385C">
             <Link
+              to={"/login"}
+              onClick={logout}
+              className="text-white text-sm hover:underline ml-2"
+            >
+              {user ? "Log ud" : "Log ind"}
+            </Link>
+          </MenuItem>
+          <MenuItem backgroundColor="#FF385C">
+            <Link
               to={user ? "/profile" : "/register"}
               className="text-white text-sm hover:underline ml-2"
             >
@@ -42,15 +51,6 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({ isOpen, onClose }) => {
           <MenuItem backgroundColor="#FF385C">
             <Link to={"/"} className="text-white text-sm hover:underline ml-2">
               {"Startside"}
-            </Link>
-          </MenuItem>
-          <MenuItem backgroundColor="#FF385C">
-            <Link
-              to={user ? "/login" : "/login"}
-              onClick={logout}
-              className="text-white text-sm hover:underline ml-2"
-            >
-              {user ? "Log ud" : "Log ind"}
             </Link>
           </MenuItem>
         </MenuGroup>

@@ -11,7 +11,7 @@ const BookingsPage: React.FC = () => {
 
   return (
     <>
-      <h1 className="flex justify-start">My bookings/travels</h1>
+      <h1 className="flex justify-center">My bookings/travels</h1>
     </>
   );
 };

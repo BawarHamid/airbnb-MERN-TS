@@ -1,0 +1,285 @@
+import { EmailIcon, LockIcon } from "@chakra-ui/icons";
+import {
+  Button,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+  useToast,
+} from "@chakra-ui/react";
+// import { faUser } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useContext, useState } from "react";
+import axios from "axios";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { UserContext } from "../../../context/UserContext";
+import { useCountryDataService } from "../../../services/countryDataService";
+// import { useCountryDataService } from "../../services/countryDataService";
+
+const SignUpPage: React.FC = () => {
+  const { user } = useContext(UserContext);
+  const [show, setShow] = React.useState(false);
+  const handleShowPassword = () => setShow(!show);
+  const [firstname, setFirstName] = useState < string > "";
+  const [lastname, setLastName] = useState < string > "";
+  const [email, setEmail] = useState < string > "";
+  const [password, setPassword] = useState < string > "";
+  const [phoneNumber, setPhoneNumber] = useState < string > "";
+  const [address, setAddress] = useState < string > "";
+  const [city, setCity] = useState < string > "";
+  const [province, setProvince] = (useState < string) | (undefined > "");
+  const [zipCode, setZipCode] = (useState < string) | (undefined > "");
+  const [country, setCountry] = useState < string > "";
+  const countriesData = useCountryDataService();
+
+  const toast = useToast();
+  const navigate = useNavigate();
+
+  if (user) {
+    return <Navigate to="/" />;
+  }
+
+  // const handleEmailChange = (e) => setEmail(e.target.value);
+  // const handlePasswordChange = (e) => setPassword(e.target.value);
+  // const handleFirstNameChange = (e) => setFirstName(e.target.value);
+  // const handleLastNameChange = (e) => setLastName(e.target.value);
+
+  const isErrorFirstName = firstname === "";
+  const isErrorLastName = lastname === "";
+  const isErrorEmail = email === "";
+  const isErrorPassword = password === "";
+
+  const handleRegistration = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+
+    try {
+      await axios.post("/register", { firstname, lastname, email, password });
+      toast({
+        position: "top",
+        title: "Registreringen Gennemført!",
+        description: "Registrering godkendt. Du logger nu ind!",
+        status: "success",
+        duration: 500,
+        isClosable: true,
+      });
+      navigate("/");
+    } catch (error) {
+      toast({
+        position: "top",
+        title: "Registrerings fejl!",
+        description: "Der opstod en fejl under registrering, prøv igen!",
+        status: "error",
+        duration: 1500,
+        isClosable: true,
+      });
+    }
+  };
+
+  const svgStyleNavBarLogo = {
+    fill: "#FF385C",
+  };
+
+  return (
+    <div className="grow">
+      <div className="flex justify-center items-center gap-2 mb-5">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 640 512"
+          style={svgStyleNavBarLogo}
+          className="h-16 w-16"
+        >
+          <path d="M32 32c17.7 0 32 14.3 32 32V320H288V160c0-17.7 14.3-32 32-32H544c53 0 96 43 96 96V448c0 17.7-14.3 32-32 32s-32-14.3-32-32V416H352 320 64v32c0 17.7-14.3 32-32 32s-32-14.3-32-32V64C0 46.3 14.3 32 32 32zm144 96a80 80 0 1 1 0 160 80 80 0 1 1 0-160z" />
+        </svg>
+        <span className="font-bold text-2xl">BeHome's</span>
+      </div>
+      <h1 className="text-3xl text-center">Velkommen til BeHome's!</h1>
+      <h3 className="text-xl text-center mt-2 italic font-bold text-gray-600">
+        Registrer dig
+      </h3>
+      <form className="max-w-md mx-auto mt-6" onSubmit={handleRegistration}>
+        <div className="flex">
+          <FormControl isRequired>
+            <FormLabel className="text-primary-red" fontSize={"small"}>
+              Fornavn:
+            </FormLabel>
+            <input
+              type="text"
+              value={firstname}
+              onChange={(e) => setFirstName(e.target.value)}
+              className="outline-none border border-primary-blue rounded-lg py-2 px-2 font-bold"
+            />
+          </FormControl>
+
+          <FormControl isRequired>
+            <FormLabel className="text-primary-red" fontSize={"small"}>
+              Efternavn:
+            </FormLabel>
+            <input
+              type="text"
+              value={lastname}
+              onChange={(e) => setLastName(e.target.value)}
+              className="outline-none border border-primary-blue rounded-lg py-2 px-2 font-bold"
+            />
+          </FormControl>
+        </div>
+        <div className="flex mt-4">
+          <FormControl isRequired>
+            <FormLabel className="text-primary-red" fontSize={"small"}>
+              Email:
+            </FormLabel>
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="outline-none border border-primary-blue rounded-lg py-2 px-2 font-bold"
+            />
+          </FormControl>
+
+          <FormControl isInvalid={isErrorPassword} isRequired>
+            <FormLabel>Password</FormLabel>
+            <InputGroup size="md">
+              <InputLeftElement pointerEvents="none" fontSize="1.2em">
+                <LockIcon color="gray.300" />
+              </InputLeftElement>
+              <Input
+                type={show ? "text" : "password"}
+                placeholder="password"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+              />
+              <InputRightElement width="4.5rem">
+                <Button
+                  h="1.80rem"
+                  size="sm"
+                  onClick={handleShowPassword}
+                  color={"#FF385C"}
+                >
+                  {show ? "Hide" : "Show"}
+                </Button>
+              </InputRightElement>
+            </InputGroup>
+            <FormErrorMessage
+              style={{
+                marginTop: "5px",
+              }}
+            >
+              {isErrorPassword && "Password is required."}
+            </FormErrorMessage>
+          </FormControl>
+
+          <FormControl isRequired>
+            <FormLabel className="text-primary-red" fontSize={"small"}>
+              Mobilnummer:
+            </FormLabel>
+            <input
+              type="text"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              className="outline-none border border-primary-blue rounded-lg py-2 px-2 font-bold"
+            />
+          </FormControl>
+        </div>
+        <div className="mt-4">
+          <FormControl isRequired>
+            <FormLabel className="text-primary-red" fontSize={"small"}>
+              Adresse:
+            </FormLabel>
+            <input
+              type="text"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              className="outline-none border border-primary-blue rounded-lg py-2 font-bold bg-[#FBFBFB] px-2 w-[495px]"
+            />
+          </FormControl>
+        </div>
+        <div className="flex mt-4">
+          <FormControl>
+            <FormLabel className="text-primary-red" fontSize={"small"}>
+              By:
+            </FormLabel>
+            <input
+              type="text"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              className="outline-none border border-primary-blue rounded-lg py-2 px-2 font-bold"
+            />
+          </FormControl>
+
+          <FormControl>
+            <FormLabel className="text-primary-red" fontSize={"small"}>
+              Region:
+            </FormLabel>
+            <input
+              type="text"
+              value={province}
+              onChange={(e) => setProvince(e.target.value)}
+              className="outline-none border border-primary-blue rounded-lg py-2 px-2 font-bold"
+            />
+          </FormControl>
+        </div>
+        <div className="flex mt-4">
+          <FormControl>
+            <FormLabel className="text-primary-red" fontSize={"small"}>
+              Postnummer:
+            </FormLabel>
+            <input
+              type="text"
+              value={zipCode}
+              onChange={(e) => setZipCode(e.target.value)}
+              className="outline-none border border-primary-blue rounded-lg py-2 px-2 font-bold"
+            />
+          </FormControl>
+
+          <FormControl isRequired>
+            <FormLabel className="text-primary-red" fontSize={"small"}>
+              Land:
+            </FormLabel>
+            <select
+              className="outline-none border border-primary-blue rounded-lg py-2 px-2 w-[230px] font-bold bg-[#FBFBFB]"
+              onChange={(e) => setCountry(e.target.value)}
+              value={country}
+              style={{ height: "2.63rem" }}
+            >
+              <option value="none" disabled className="font-bold">
+                Vælg et land
+              </option>
+              {countriesData.map((country, index) => (
+                <option key={index} value={country.name.common}>
+                  {country.name.common}
+                </option>
+              ))}
+            </select>
+          </FormControl>
+        </div>
+        {/* Submit button */}
+        <button
+          className="bg-primary-red p-2 w-full text-white rounded-lg mt-5 font-bold"
+          disabled={
+            (isErrorFirstName &&
+              isErrorLastName &&
+              isErrorEmail &&
+              isErrorPassword) ||
+            isErrorFirstName ||
+            isErrorLastName ||
+            isErrorEmail ||
+            isErrorPassword
+          }
+          type="submit"
+        >
+          Opret
+        </button>
+        <div className="text-center py-2 text-gray-500">
+          Er du allerede registeret?{" "}
+          <Link className="underline text-black" to={"/login"}>
+            Log ind her!
+          </Link>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default SignUpPage;

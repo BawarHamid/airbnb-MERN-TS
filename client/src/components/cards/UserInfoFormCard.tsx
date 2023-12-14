@@ -1,6 +1,6 @@
 import { FormControl, FormLabel } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import Select from "react-select";
+import { useState } from "react";
+import { useCountryDataService } from "../../services/countryDataService";
 
 type UserInfoCardProps = {
   firstName: string;
@@ -39,24 +39,12 @@ const UserInfoFormCard: React.FC<UserInfoCardProps> = ({
     zipCode
   );
   const [editedCountry, setEditedCountry] = useState<string>(country);
-  const [countriesData, setCountriesData] = useState<string[]>([]);
+  const countriesData = useCountryDataService();
 
-  useEffect(() => {
-    fetch("https://restcountries.com/v3.1/all")
-      .then((response) => response.json())
-      .then((data) => {
-        // console.log(data);
-        setCountriesData(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching countries data:", error);
-      });
-  }, []);
-  console.log(editedCountry);
   return (
-    <div className="outline-none py-8 px-8 my-2 focus:border focus:border-blue-600 focus:bg-slate-50 rounded-lg shadow-lg shadow-[#E4E3E9] max-w-2xl">
+    <div className="outline-none py-8 px-8 my-3 focus:border focus:border-blue-600 focus:bg-slate-50 rounded-lg shadow-lg shadow-[#E4E3E9] max-w-2xl">
       <div className="flex flex-col h-full justify-start w-full px-10 mx-4">
-        <h1 className="text-xl font-bold text-black text-start">
+        <h1 className="text-xl  text-black text-start">
           Administrer dine konto oplysninger her
         </h1>
         <div className="mt-4">
@@ -69,7 +57,7 @@ const UserInfoFormCard: React.FC<UserInfoCardProps> = ({
                 type="text"
                 value={editedFirstName}
                 onChange={(e) => setEditedFirstName(e.target.value)}
-                className="outline-none border border-primary-blue rounded-lg py-2 px-2 font-bold"
+                className="outline-none border border-primary-blue rounded-lg py-2 px-2"
               />
             </FormControl>
 
@@ -81,7 +69,7 @@ const UserInfoFormCard: React.FC<UserInfoCardProps> = ({
                 type="text"
                 value={editedLastName}
                 onChange={(e) => setEditedLastName(e.target.value)}
-                className="outline-none border border-primary-blue rounded-lg py-2 px-2 font-bold"
+                className="outline-none border border-primary-blue rounded-lg py-2 px-2"
               />
             </FormControl>
           </div>
@@ -95,7 +83,7 @@ const UserInfoFormCard: React.FC<UserInfoCardProps> = ({
                 type="text"
                 value={editedEmail}
                 onChange={(e) => setEditedEmail(e.target.value)}
-                className="outline-none border border-primary-blue rounded-lg py-2 px-2 font-bold"
+                className="outline-none border border-primary-blue rounded-lg py-2 px-2"
               />
             </FormControl>
 
@@ -107,7 +95,7 @@ const UserInfoFormCard: React.FC<UserInfoCardProps> = ({
                 type="text"
                 value={editedPhoneNumber}
                 onChange={(e) => setEditedPhoneNumber(e.target.value)}
-                className="outline-none border border-primary-blue rounded-lg py-2 px-2 font-bold"
+                className="outline-none border border-primary-blue rounded-lg py-2 px-2"
               />
             </FormControl>
           </div>
@@ -121,7 +109,7 @@ const UserInfoFormCard: React.FC<UserInfoCardProps> = ({
                 type="text"
                 value={editedAddress}
                 onChange={(e) => setEditedAddress(e.target.value)}
-                className="outline-none border border-primary-blue rounded-lg py-2 font-bold bg-[#FBFBFB] px-2 w-[495px]"
+                className="outline-none border border-primary-blue rounded-lg py-2  bg-[#FBFBFB] px-2 w-[495px]"
               />
             </FormControl>
           </div>
@@ -135,7 +123,7 @@ const UserInfoFormCard: React.FC<UserInfoCardProps> = ({
                 type="text"
                 value={editedCity}
                 onChange={(e) => setEditedCity(e.target.value)}
-                className="outline-none border border-primary-blue rounded-lg py-2 px-2 font-bold"
+                className="outline-none border border-primary-blue rounded-lg py-2 px-2"
               />
             </FormControl>
 
@@ -147,7 +135,7 @@ const UserInfoFormCard: React.FC<UserInfoCardProps> = ({
                 type="text"
                 value={editedProvince}
                 onChange={(e) => setEditedProvince(e.target.value)}
-                className="outline-none border border-primary-blue rounded-lg py-2 px-2 font-bold"
+                className="outline-none border border-primary-blue rounded-lg py-2 px-2"
               />
             </FormControl>
           </div>
@@ -160,7 +148,7 @@ const UserInfoFormCard: React.FC<UserInfoCardProps> = ({
                 type="text"
                 value={editedZipCode}
                 onChange={(e) => setEditedZipCode(e.target.value)}
-                className="outline-none border border-primary-blue rounded-lg py-2 px-2 font-bold"
+                className="outline-none border border-primary-blue rounded-lg py-2 px-2"
               />
             </FormControl>
 
@@ -169,49 +157,28 @@ const UserInfoFormCard: React.FC<UserInfoCardProps> = ({
                 Land:
               </FormLabel>
               <select
-                className="outline-none border border-primary-blue rounded-lg py-2 px-2 w-[230px] font-bold bg-[#FBFBFB]"
+                className="outline-none border border-primary-blue rounded-lg py-2 px-2 w-[230px] bg-[#FBFBFB]"
                 onChange={(e) => setEditedCountry(e.target.value)}
                 value={editedCountry}
-                style={{ height: "2.66rem" }}
+                style={{ height: "2.63rem" }}
               >
-                <option value="none" disabled selected className="font-bold">
+                <option value="none" disabled className="">
                   Vælg et land
                 </option>
                 {countriesData.map((country, index) => (
                   <option key={index} value={country.name.common}>
-                    <img
-                      src={country.flags.svg || country.flags.png}
-                      alt={`${country.name.common} flag`}
-                      style={{ width: "20px", marginRight: "5px" }}
-                    />
                     {country.name.common}
                   </option>
                 ))}
               </select>
-              {/* <Select
-                className="outline-none border border-primary-blue rounded-lg py-2 px-2 font-bold"
-                focusBorderColor="#455CC6"
-                borderColor="#455CC6"
-                borderWidth="1px"
-                placeholder="Vælg land"
-                alignItems="center"
-              >
-                {countries.map((country, index) => (
-                  <option key={index} value={country}>
-                    {country}
-                  </option>
-                ))}
-              </Select> */}
             </FormControl>
           </div>
           <div className="mt-5">
             <button
               type="submit"
-              value={editedAddress}
-              // onChange={(e) => setEditedAddress(e.target.value)}
-              className="rounded-lg py-2 font-bold px-2 w-[495px] bg-primary-blue text-white select-none border hover:bg-primary-blue hover:bg-opacity-70 active:bg-blue-700 active:bg-opacity-80"
+              className="rounded-lg py-2  px-2 w-[495px] bg-primary-blue text-white select-none border hover:bg-primary-blue hover:bg-opacity-70 active:bg-blue-700 active:bg-opacity-80"
             >
-              Opdater Information
+              Opdater konto oplysninger
             </button>
           </div>
         </div>

@@ -7,7 +7,7 @@ const HeaderLayout: React.FC = () => {
     <>
       <div className="flex flex-col min-h-screen">
         <NavHeader />
-        <div className="py-20">
+        <div className="py-10">
           <Outlet />
         </div>
       </div>

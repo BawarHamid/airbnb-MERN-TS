@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 
 const SignInPage: React.FC = () => {
@@ -19,11 +19,15 @@ const SignInPage: React.FC = () => {
   const handleShowPassword = () => setShow(!show);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const { setUser } = useContext(UserContext);
+  const { setUser, user } = useContext(UserContext);
 
   // const [redirect, setRedirect] = useState(false);
   const toast = useToast();
   const navigate = useNavigate();
+
+  if (user) {
+    return <Navigate to="/" />;
+  }
 
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
@@ -62,11 +66,11 @@ const SignInPage: React.FC = () => {
   // }
 
   const svgStyleNavBarLogo = {
-    fill: "#FF385C", // Red fill color for the svg
+    fill: "#FF385C",
   };
 
   return (
-    <div className="mt-2 grow">
+    <div className="mt-8 grow">
       <div className="flex justify-center items-center gap-2 mb-5">
         <svg
           xmlns="http://www.w3.org/2000/svg"
