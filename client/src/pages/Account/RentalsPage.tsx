@@ -39,21 +39,29 @@
 
 // export default RentalsPage;
 
-import { useContext } from "react";
-import RentalFormPage from "../Rental/RentalFormPage";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/UserContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import RentalImg from "../../components/rental/imgs/RentalImg";
 
 const RentalsPage: React.FC = () => {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
+  const [rentals, setRentals] = useState([]);
+  useEffect(() => {
+    axios.get("/user-rentals").then(({ data }) => {
+      setRentals(data);
+    });
+  }, []);
+
   return (
     <div className="">
-      <div className="flex justify-end mx-3">
+      <div className="flex justify-end mx-3 mt-[-15px]">
         <button
           onClick={() => navigate("/profile/my-rentals/new")}
-          className="flex items-center gap-2 ml-5 rounded-full bg-blue-100 px-4 py-2 mt-[-30px] select-none hover:bg-primary-blue hover:bg-opacity-90 hover:text-white active:bg-primary-blue active:bg-opacity-50 active:text-black"
+          className="flex items-center gap-2 ml-5 rounded-full bg-blue-100 px-4 py-2 select-none hover:bg-primary-blue hover:bg-opacity-90 hover:text-white active:bg-primary-blue active:bg-opacity-50 active:text-black"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +80,7 @@ const RentalsPage: React.FC = () => {
             <h1 className="text-3xl text-black font-semibold">
               Velkommen, {user.firstname}
             </h1>
-            <h2 className="text-xl text-black font-semibold mt-3">
+            <h2 className="text-xl text-black font-semibold mt-3 mb-5">
               Dine aktive udlejningsopslag:
             </h2>
           </div>
@@ -82,7 +90,28 @@ const RentalsPage: React.FC = () => {
           </div>
         )}
       </div>
-      <div></div>
+      <div className="mx-4">
+        {rentals.length > 0 &&
+          rentals.map((rental) => (
+            <Link
+              to={"/profile/my-rentals/" + rental._id}
+              key={rental._id}
+              className="cursor-pointer flex gap-4 border bg-white rounded-xl mb-2"
+            >
+              <div className="max-w-xs">
+                <RentalImg rental={rental} />
+              </div>
+              <div className="flex flex-col p-4 grow">
+                <h2 className="text-xl font-semibold">
+                  {rental.placeType} i {rental.city}
+                </h2>
+                <p className="text-sm overflow-hidden overflow-ellipsis">
+                  {rental.description}
+                </p>
+              </div>
+            </Link>
+          ))}
+      </div>
     </div>
   );
 };

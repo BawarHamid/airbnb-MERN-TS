@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 const ProfileHeader: React.FC = () => {
   const { user } = useContext(UserContext);
   return (
-    <header className="bg-[#f8f9fe74] z-50 py-2 flex items-center">
+    // <header className="bg-[#fcfcfd] z-50 py-2 flex border-b border-gray-100">
+    <header className="bg-[#fcfcfd] z-50 py-2 flex fixed border-b border-gray-100 w-full">
       <SearchBar
         searchBarText="Søg her"
         icon={
@@ -19,7 +20,8 @@ const ProfileHeader: React.FC = () => {
           </svg>
         }
       />
-      <div className="ml-auto flex gap-4">
+      <div className="ml-[26.7rem] flex gap-4 items-center">
+        {/* <div className="ml-auto flex gap-4 items-center"> */}
         <Link
           to={"my-rentals/new"}
           className="bg-white rounded-full py-3 px-3 border hover:border-transparent hover:bg-gray-200 focus:border-blue-600 focus:outline-none focus:border border-gray-200 active:border-transparent"
@@ -75,7 +77,7 @@ const ProfileHeader: React.FC = () => {
           </svg>
         </Link>
       </div>
-      <div className="flex ml-4">
+      <div className="flex ml-4 items-center">
         <img
           className="h-9 w-9 rounded-full"
           src="https://gravatar.chjina.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200"

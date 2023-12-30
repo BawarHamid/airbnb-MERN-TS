@@ -1,20 +1,30 @@
 import { Listbox, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useRef, useState } from "react";
-import { useCountryDataService } from "../../services/countryDataService";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
-type CountriesListbox = {
+type PlaceTypeListboxProps = {
   value: string;
   changeCallback: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const CountriesListbox: React.FC<CountriesListbox> = ({
+const accommodationTypes = [
+  "Lejlighed",
+  "Hus",
+  "Værelse",
+  "Villa",
+  "Sommerhuse",
+  "Hytte",
+  "Gæstehus",
+  "Slot",
+];
+
+const PlaceTypeListbox: React.FC<PlaceTypeListboxProps> = ({
   value,
   changeCallback,
 }) => {
-  const countriesData = useCountryDataService();
   const [showBorder, setShowBorder] = useState(false);
   const listBoxRef = useRef(null);
+  // const [accommodations, setAccommodations] = useState<string[]>([value]);
 
   const handleSelect = (value) => {
     changeCallback(value);
@@ -41,14 +51,12 @@ const CountriesListbox: React.FC<CountriesListbox> = ({
           <Listbox.Button
             className={`relative w-full cursor-default rounded-lg focus:outline-none bg-white py-3 pl-3 pr-10 text-left shadow-sm sm:text-sm ${
               showBorder
-                ? "border-gray-700 border-2"
-                : "border-gray-300 border-2"
+                ? "border-gray-700 border-2 font-semibold text-black"
+                : "border-gray-300 border-2 text-black"
             }`}
             onClick={() => setShowBorder(true)} // Show the border on click
           >
-            <span className="block truncate text-gray-400">
-              {value || "Vælg et land"}
-            </span>
+            <span className="block truncate">{value || "Vælg bolig type"}</span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
               <ChevronUpDownIcon
                 className={`h-5 w-5 ${
@@ -64,7 +72,7 @@ const CountriesListbox: React.FC<CountriesListbox> = ({
             leaveTo="opacity-0"
           >
             <Listbox.Options className="absolute mt-1 max-h-[22.8rem] w-full overflow-auto rounded-md bg-[#FBFBFB] py-1 text-base shadow-lg focus:outline-none sm:text-sm z-50">
-              {countriesData.map((country, index) => (
+              {accommodationTypes.map((accommodation, index) => (
                 <Listbox.Option
                   key={index}
                   className={({ active }) =>
@@ -74,8 +82,8 @@ const CountriesListbox: React.FC<CountriesListbox> = ({
                         : "text-gray-900"
                     }`
                   }
-                  value={country.name.common}
-                  onClick={() => handleSelect(country.name.common)}
+                  value={accommodation}
+                  onClick={() => handleSelect(accommodation)}
                 >
                   {({ active }) => (
                     <>
@@ -84,7 +92,7 @@ const CountriesListbox: React.FC<CountriesListbox> = ({
                           active ? "font-medium" : "font-normal"
                         }`}
                       >
-                        {country.name.common}
+                        {accommodation}
                       </span>
                       {active ? (
                         <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-white">
@@ -103,4 +111,4 @@ const CountriesListbox: React.FC<CountriesListbox> = ({
   );
 };
 
-export default CountriesListbox;
+export default PlaceTypeListbox;
